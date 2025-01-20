@@ -1,0 +1,27 @@
+on:
+  push:
+    # Sequence of patterns matched against refs/tags
+    tags:
+    - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+
+name: Upload Release Asset
+
+jobs:
+  build:
+    name: Upload Release Asset
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Build project
+        run: |
+          mkdir -p /home/max/a52q_releases/release
+          #echo hello > app/build/outputs/apk/release/app-release-unsigned.apk
+      - name: Release with Notes
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            app/build/outputs/apk/release/app-release-unsigned.apk
+            other/files/as/needed
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
