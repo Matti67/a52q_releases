@@ -1,0 +1,3 @@
+#We ignore al the files inside releases folder because 
+#they will be pushed to github as a release
+releases/
